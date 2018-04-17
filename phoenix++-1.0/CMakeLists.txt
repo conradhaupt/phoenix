@@ -24,7 +24,7 @@ target_link_libraries(phoenix++ ${CMAKE_THREAD_LIBS_INIT})
 # If we are running under Linux, add rt library and declare _LINUX_ preprocessor
 if (UNIX AND NOT APPLE)
     target_link_libraries(phoenix++ rt)
-    target_compile_definitions(phoenix++ PRIVATE MMAP_POPULATE _LINUX_)
+    target_compile_definitions(phoenix++ PUBLIC MMAP_POPULATE _LINUX_)
 endif ()
 
 target_compile_options(phoenix++ PRIVATE
@@ -37,7 +37,7 @@ target_compile_options(phoenix++ PRIVATE
 EXECUTE_PROCESS(COMMAND uname -m COMMAND tr -d '\n' OUTPUT_VARIABLE ARCHITECTURE)
 message(STATUS "Architecture: ${ARCHITECTURE}")
 if (${ARCHITECTURE} STREQUAL "x86_64")
-    target_compile_options(phoenix++ PRIVATE -D__x86_64__)
+    target_compile_options(phoenix++ PUBLIC -D__x86_64__)
 endif ()
 
 install(TARGETS phoenix++
